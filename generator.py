@@ -20,17 +20,26 @@ def find(name, path):
         if name in files:
             return os.path.join(root, name)
 
-def change_recipe(name: str):
-    with open(presets_recipe_dir + name + ".json", "r") as file:
+def get_file(path: str):
+    with open(path, "r") as file:
         js = json.load(file)
+    return js
+
+def safe_open_w(path):
+    ''' Open "path" for writing, creating any parent directories as needed.
+    '''
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    return open(path, 'w')
+
+def change_recipe(name: str):
+    js = get_file(presets_recipe_dir + name + ".json")
     js['result'].update(config[name])
     # print(json.dumps(js, indent=2))
-    with open(recipe_dir + name + ".json", "w") as output:
+    with safe_open_w(recipe_dir + name + ".json") as output:
         output.writelines(json.dumps(js, indent=2))
 
 def change_loot_table(name: str):
-    with open(presets_loot_table_dir + name + ".json", "r") as preset:
-        js = json.load(preset)
+    js = get_file(presets_loot_table_dir + name + ".json")
     for pool in js['pools']:
 
         for entries in pool['entries']:
@@ -39,7 +48,7 @@ def change_loot_table(name: str):
                     entries['functions'].insert(0, config[name][key])
                     # print(json.dumps(entries['functions'], indent=2))
     # print(json.dumps(js, indent=2))
-    with open(loot_table_dir + name + ".json", "w") as output:
+    with safe_open_w(loot_table_dir + name + ".json") as output:
         output.writelines(json.dumps(js, indent=2))
 
 def main():
