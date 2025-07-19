@@ -1,0 +1,31 @@
+{
+  "cooked_porkchop": {
+    "components": {
+      "minecraft:max_stack_size": 1
+    }
+  },
+  "cooked_beef": {
+    "components": {
+      "minecraft:max_stack_size": 1
+    }
+  },
+  "test_file_does_not_exist": {
+    "Nothing": true
+  },
+  "entities/pig": {
+    "minecraft:porkchop": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:max_stack_size": 1
+      }
+    }
+  },
+  "entities/cow": {
+    "minecraft:beef": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:max_stack_size": 1
+      }
+    }
+  }
+}

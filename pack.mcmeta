@@ -1,0 +1,6 @@
+{
+	"pack": {
+		"pack_format": 71,
+		"description": "Adjusts the speed of horses based on what block they are walking on"
+	}
+}
