@@ -1,3 +1,2 @@
-presets/*
-data/minecraft/recipe/*
-data/minecraft/loot_table/*
+*.json
+!/config.json
