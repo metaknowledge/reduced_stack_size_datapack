@@ -31,20 +31,23 @@ def safe_open_w(path):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     return open(path, 'w')
 
-def change_recipe(name: str):
-    js = get_file(presets_recipe_dir + name + ".json")
+def change_recipe(name: str, modifier):
+    js = get_file(presets_recipe_dir + name + modifier + ".json")
     js['result'].update(config[name])
     # print(json.dumps(js, indent=2))
-    with safe_open_w(recipe_dir + name + ".json") as output:
+    with safe_open_w(recipe_dir + name + modifier + ".json") as output:
         output.writelines(json.dumps(js, indent=2))
 
 def change_loot_table(name: str):
+    print(name)
     js = get_file(presets_loot_table_dir + name + ".json")
     for pool in js['pools']:
-
         for entries in pool['entries']:
+
             for key in config[name].keys(): 
-                if (key == entries['name']):
+                if (entries.get('name') is not None and key == entries['name']):
+                    if entries.get('functions') is None:
+                        entries['functions'] = []
                     entries['functions'].insert(0, config[name][key])
                     # print(json.dumps(entries['functions'], indent=2))
     # print(json.dumps(js, indent=2))
@@ -54,8 +57,14 @@ def change_loot_table(name: str):
 def main():
     for name in config:
         default_recipe = find(name + ".json", presets_recipe_dir)  
+        campfire_recipe = find(name + "_from_campfire_cooking" + ".json", presets_recipe_dir)  
+        smoking_recipe = find(name + "_from_smoking" + ".json", presets_recipe_dir)  
         if (default_recipe is not None):
-            change_recipe(name)
+            change_recipe(name, "")
+        if (campfire_recipe is not None):
+            change_recipe(name, "_from_campfire_cooking")
+        if (smoking_recipe is not None):
+            change_recipe(name, "_from_smoking")
         if os.path.isfile(presets_loot_table_dir + name + ".json"):
             change_loot_table(name)
 

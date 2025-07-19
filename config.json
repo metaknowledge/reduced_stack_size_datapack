@@ -1,16 +1,205 @@
 {
-  "cooked_porkchop": {
+  "baked_potato": {
     "components": {
       "minecraft:max_stack_size": 1
     }
   },
+  "bread": {
+    "components": {
+      "minecraft:max_stack_size": 1
+    }
+  },
+  "cooked_chicken": {
+    "components": {
+      "minecraft:max_stack_size": 1
+    }
+  }, 
   "cooked_beef": {
     "components": {
       "minecraft:max_stack_size": 1
     }
   },
-  "test_file_does_not_exist": {
-    "Nothing": true
+  "cooked_cod": {
+    "components": {
+      "minecraft:max_stack_size": 1
+    }
+  },
+  "cooked_mutton": {
+    "components": {
+      "minecraft:max_stack_size": 1
+    }
+  },
+  "cooked_porkchop": {
+    "components": {
+      "minecraft:max_stack_size": 1
+    }
+  },
+  "cooked_rabbit": {
+    "components": {
+      "minecraft:max_stack_size": 1
+    }
+  },
+
+  "cooked_salmon": {
+    "components": {
+      "minecraft:max_stack_size": 1
+    }
+  },
+  "cookie": {
+    "components": {
+      "minecraft:max_stack_size": 8
+    }
+  },
+  "dried_kelp": {
+    "components": {
+      "minecraft:max_stack_size": 9
+    }
+  },
+  "dried_kelp_from_smelting": {
+    "components": {
+      "minecraft:max_stack_size": 9
+    }
+  },
+  "golden_apple": {
+    "components": {
+      "minecraft:max_stack_size": 1
+    }
+  },
+  "golden_carrot": {
+    "components": {
+      "minecraft:max_stack_size": 1
+    }
+  },
+  "honey_bottle": {
+    "components": {
+      "minecraft:max_stack_size": 1
+    }
+  },
+  "pumpkin_pie": {
+    "components": {
+      "minecraft:max_stack_size": 1
+    }
+  },
+  "rabbit_stew_from_brown_mushroom": {
+    "components": {
+      "minecraft:max_stack_size": 1
+    }
+  },
+  "rabbit_stew_from_red_mushroom": {
+    "components": {
+      "minecraft:max_stack_size": 1
+    }
+  },
+
+
+
+
+  "psuedo_comment": {
+    "does_nothing": "will not be parsed",
+    "loot_tables": "below"
+  },
+
+  "blocks/oak_leaves": {
+    "minecraft:apple": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:max_stack_size": 1
+      }
+    }
+  },
+  "blocks/beetroots": {
+    "minecraft:beetroot": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:max_stack_size": 1
+      }
+    }
+  },
+  "blocks/carrots": {
+    "minecraft:carrot": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:max_stack_size": 1
+      }
+    }
+  },
+  "blocks/chorus_plant": {
+    "minecraft:chorus_fruit": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:max_stack_size": 1
+      }
+    }
+  },
+  "blocks/cave_vines": {
+    "minecraft:glow_berries": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:max_stack_size": 1
+      }
+    }
+  },
+  "blocks/cave_vines_plant": {
+    "minecraft:glow_berries": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:max_stack_size": 1
+      }
+    }
+  },
+  "blocks/melon": {
+    "minecraft:melon_slice": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:max_stack_size": 1
+      }
+    }
+  },
+  "blocks/potatoes": {
+    "minecraft:potato": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:max_stack_size": 1
+      }
+    }
+  },
+
+
+
+
+
+
+  "entities/cow": {
+    "minecraft:beef": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:max_stack_size": 1
+      }
+    }
+  },
+  "entities/chicken": {
+    "minecraft:chicken": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:max_stack_size": 1
+      }
+    }
+  },
+  "entities/cod": {
+    "minecraft:cod": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:max_stack_size": 1
+      }
+    }
+  },
+  "entities/sheep": {
+    "minecraft:mutton": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:max_stack_size": 1
+      }
+    }
   },
   "entities/pig": {
     "minecraft:porkchop": {
@@ -20,12 +209,43 @@
       }
     }
   },
-  "entities/cow": {
-    "minecraft:beef": {
+  "entities/salmon": {
+    "minecraft:porkchop": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:max_stack_size": 1
+      }
+    }
+  },
+  "entities/zombie": {
+    "minecraft:rotten_flesh": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:max_stack_size": 1
+      }
+    },
+    "minecraft:carrot": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:max_stack_size": 1
+      }
+    },
+    "minecraft:potato": {
+      "function": "minecraft:set_components",
+      "components": {
+        "minecraft:max_stack_size": 1
+      }
+    }
+
+  },
+  "entities/sweet_berry_bush": {
+    "minecraft:sweet_berries": {
       "function": "minecraft:set_components",
       "components": {
         "minecraft:max_stack_size": 1
       }
     }
   }
+
+
 }
