@@ -1,4 +1,3 @@
-presets/recipe/
-presets/loot_table/
-data/minecraft/recipe/
-data/minecraft/loot_table/
+presets/*
+data/minecraft/recipe/*
+data/minecraft/loot_table/*
