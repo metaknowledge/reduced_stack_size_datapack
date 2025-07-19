@@ -31,42 +31,44 @@ def safe_open_w(path):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     return open(path, 'w')
 
-def change_recipe(name: str, modifier):
-    js = get_file(presets_recipe_dir + name + modifier + ".json")
-    js['result'].update(config[name])
-    # print(json.dumps(js, indent=2))
-    with safe_open_w(recipe_dir + name + modifier + ".json") as output:
-        output.writelines(json.dumps(js, indent=2))
+def check_and_change_recipe(file: str):
+    js = get_file(presets_recipe_dir + file)
+    result = js.get('result')
 
-def change_loot_table(name: str):
-    print(name)
-    js = get_file(presets_loot_table_dir + name + ".json")
-    for pool in js['pools']:
-        for entries in pool['entries']:
+    if type(result) is dict and config.get(result.get('id')) is not None:
+        print(json.dumps(result, indent=2))
+        result.update(config.get(result.get('id')))
+        with safe_open_w(recipe_dir + file) as output:
+            output.writelines(json.dumps(js, indent=2)) 
 
-            for key in config[name].keys(): 
-                if (entries.get('name') is not None and key == entries['name']):
-                    if entries.get('functions') is None:
-                        entries['functions'] = []
-                    entries['functions'].insert(0, config[name][key])
-                    # print(json.dumps(entries['functions'], indent=2))
-    # print(json.dumps(js, indent=2))
-    with safe_open_w(loot_table_dir + name + ".json") as output:
-        output.writelines(json.dumps(js, indent=2))
+def check_and_change_loot_table(dirpath: str, file: str):
+    js = get_file(presets_loot_table_dir + dirpath + '/' + file)
+    if js.get('pools') is not None:
+
+        for pool in js.get('pools'):
+            for entry in pool.get('entries'):
+                if type(entry) is dict:
+                    if config.get(entry.get('name')) is not None:
+                        if entry.get('functions') is None:
+                            entry['functions'] = []
+                        new_function = config.get(entry.get('name'))
+                        new_function['function'] = 'minecraft:set_components'
+                        entry['functions'].insert(0, new_function)
+                        with safe_open_w(loot_table_dir + dirpath + '/' + file) as output:
+                            output.writelines(json.dumps(js, indent=2))
+                            print("wrote")
+
+
 
 def main():
-    for name in config:
-        default_recipe = find(name + ".json", presets_recipe_dir)  
-        campfire_recipe = find(name + "_from_campfire_cooking" + ".json", presets_recipe_dir)  
-        smoking_recipe = find(name + "_from_smoking" + ".json", presets_recipe_dir)  
-        if (default_recipe is not None):
-            change_recipe(name, "")
-        if (campfire_recipe is not None):
-            change_recipe(name, "_from_campfire_cooking")
-        if (smoking_recipe is not None):
-            change_recipe(name, "_from_smoking")
-        if os.path.isfile(presets_loot_table_dir + name + ".json"):
-            change_loot_table(name)
+    for dirpath, dirname, filenames in os.walk(presets_recipe_dir):
+        for file in filenames:
+            check_and_change_recipe(file)
 
+    for dirpath, dirname, filenames in os.walk(presets_loot_table_dir):
+        for file in filenames:
+            # print(dirpath)
+            print(dirpath[21:], file)
+            check_and_change_loot_table(dirpath[21:], file)
 
 main()
