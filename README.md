@@ -1,6 +1,6 @@
 # Reduced Stack Size Datapack
 
-A datapack/tool to reduce the stack size of items. 
+A datapack/tool for Minecraft to reduce the stack size of items. 
 
 ## Instructions
 
