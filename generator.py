@@ -36,10 +36,22 @@ def check_and_change_recipe(file: str):
     result = js.get('result')
 
     if type(result) is dict and config.get(result.get('id')) is not None:
-        print(json.dumps(result, indent=2))
         result.update(config.get(result.get('id')))
         with safe_open_w(recipe_dir + file) as output:
             output.writelines(json.dumps(js, indent=2)) 
+
+def loot_table_helper(js, entry, dirpath, file):
+    if config.get(entry.get('name')) is not None:
+        if entry.get('functions') is None:
+            entry['functions'] = []
+        new_function = config.get(entry.get('name'))
+        new_function['function'] = 'minecraft:set_components'
+        entry['functions'].insert(0, new_function)
+        with safe_open_w(loot_table_dir + dirpath + '/' + file) as output:
+            output.writelines(json.dumps(js, indent=2))
+
+
+        
 
 def check_and_change_loot_table(dirpath: str, file: str):
     js = get_file(presets_loot_table_dir + dirpath + '/' + file)
@@ -48,16 +60,16 @@ def check_and_change_loot_table(dirpath: str, file: str):
         for pool in js.get('pools'):
             for entry in pool.get('entries'):
                 if type(entry) is dict:
-                    if config.get(entry.get('name')) is not None:
-                        if entry.get('functions') is None:
-                            entry['functions'] = []
-                        new_function = config.get(entry.get('name'))
-                        new_function['function'] = 'minecraft:set_components'
-                        entry['functions'].insert(0, new_function)
-                        with safe_open_w(loot_table_dir + dirpath + '/' + file) as output:
-                            output.writelines(json.dumps(js, indent=2))
-                            print("wrote")
+                    match entry.get('type'):
+                        case "minecraft:alternatives":
+                            for child in entry.get('children'):
+                                loot_table_helper(js, child, dirpath, file)
+                                
+                                print("wrote", file)
+                        case "minecraft:item":
+                            loot_table_helper(js, entry, dirpath, file)
 
+                    
 
 
 def main():
@@ -67,8 +79,6 @@ def main():
 
     for dirpath, dirname, filenames in os.walk(presets_loot_table_dir):
         for file in filenames:
-            # print(dirpath)
-            print(dirpath[21:], file)
             check_and_change_loot_table(dirpath[21:], file)
 
 main()

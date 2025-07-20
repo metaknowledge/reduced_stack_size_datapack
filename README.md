@@ -8,3 +8,4 @@ Since we can't edit an item definition I decided to have a python script change 
 Copy the recipes and loot_tables folder from the current Minecraft jar version into the folder `presets/`. This is where the script will draw definitions from.
 Take a look at the config.json to see how to define items. Then run `python generator.py` to make the files. Copy everything here into your datapacks/ folder and run the /reload command.
 I haven't tested it for every item, so there's bound to be some edge cases.
+In anycase items can't stack together if they carry different max_stack_size properties, so the damage is minimal.
